@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanse Tracker</title>
+    <style>
+        .class {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        #container {
+            text-align: center;
+            background-color: beige;
+            max-width: 600px;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 20px;
+        }
+        input[type=text], select, input[type=number], input[type=submit], table {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            background-color: aquamarine;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        th, td {
+            border-collapse: separate;
+            border: 2px black;
+            background-color: aqua;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="class">
+    <div id="container">
+        <h1>Expense Tracker</h1>
+        <form id="expenseform">
+            <input type="text" required placeholder="Description" id="description">
+            <br>
+            <select name="Expensetype" id="expensetype">
+                <option value="vehicle">Vehicle</option>
+                <option value="food">Food</option>
+                <option value="dress">Dress</option>
+                <option value="copy">Copy</option>
+            </select>
+            <input type="number" id="amount" required placeholder="Amount">
+            <input type="submit" value="Add Expense">
+        </form>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="expenselist">
+            </tbody>
+        </table>
+        <script>
+            let expenseform = document.getElementById('expenseform');
+            let expenselist = document.getElementById('expenselist');
+
+            expenseform.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const description = document.getElementById('description').value;
+                const amount = document.getElementById('amount').value;
+                const type = document.getElementById('expensetype').value;
+
+                if (description && type && !isNaN(amount)) {
+                    const newrow = document.createElement('tr');
+                    newrow.innerHTML = `<td>${description}</td><td>${type}</td><td>${amount}</td>`;
+                    expenselist.appendChild(newrow);
+                    
+                    document.getElementById('description').value = '';
+                    document.getElementById('expensetype').value = '';
+                    document.getElementById('amount').value = '';
+                }
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>
